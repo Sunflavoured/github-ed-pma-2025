@@ -7,6 +7,19 @@ import android.widget.EditText
 import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
+//nejdříve si připravím proměnné dostupné pouze ze třídy MainActivity(private)
+    // lateinit mi dovolí je inicializovat pozdějí ve funkci onCreate
+    private lateinit var calendarView: CalendarView
+    private lateinit var etEvent: EditText
+    private lateinit var btnAdd: Button
+    private lateinit var tvEvents: TextView
+
+    // vytvářím proměnnou mapu klíč hodnota pro ukládání eventů k datumu, lze ji průběžné upravovat
+    private val eventsMap = mutableMapOf<String, MutableList<String>>()
+   //proměnná která bude ukládat datum podle zrovna vybraného datumu v kalendáři
+    private var selectedDate: String = ""
+
+    // onCreate je funkce volaná při vytvoření aktivity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
