@@ -1,10 +1,10 @@
 package com.example.myapplication
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,5 +25,21 @@ class MainActivity : AppCompatActivity() {
         val tvInformation = findViewById<TextView>(R.id.tvInformation)
         val btnSend = findViewById<Button>(R.id.btnSend)
         val btnDelete = findViewById<Button>(R.id.btnDelete)
+
+        //nastaveni obsluhy pro tlačítko Odeslat
+
+        btnSend.setOnClickListener {
+            val name = etName.text.toString()
+            val surname = etSurname.text.toString()
+            val place = etPlace.text.toString()
+            val age = etAge.text.toString()
+
+            // Zobrazení textu v TextView
+            val formatedText = "Jmenuji se $name $surname. Je mi $age let a bydlím v $place."
+           //vypsání textu do TextView
+            tvInformation.text = formatedText
+
+        }
     }
 }
+
