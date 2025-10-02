@@ -42,12 +42,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnDelete.setOnClickListener {
+            //text je editable, proto lze použít clear()
             etName.text.clear()
             etSurname.text.clear()
             etPlace.text.clear()
             etAge.text.clear()
 
-            //smazání textu z TextView
+            //smazání textu z TextView - není to editable prvek
             tvInformation.text = ""
         }
     }

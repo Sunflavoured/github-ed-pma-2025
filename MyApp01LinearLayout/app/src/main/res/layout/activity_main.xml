@@ -97,7 +97,7 @@
         android:layout_height="200dp"
         android:hint="Zde zadejte své osobní informace!"
         android:layout_margin="20dp"
-        android:backgroundTint="#CCA841FF">
+        android:background="#CCC0A8D5">
 
     </TextView>
 </LinearLayout>
