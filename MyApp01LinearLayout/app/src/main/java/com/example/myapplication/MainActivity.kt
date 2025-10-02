@@ -40,6 +40,16 @@ class MainActivity : AppCompatActivity() {
             tvInformation.text = formatedText
 
         }
+
+        btnDelete.setOnClickListener {
+            etName.text.clear()
+            etSurname.text.clear()
+            etPlace.text.clear()
+            etAge.text.clear()
+
+            //smazání textu z TextView
+            tvInformation.text = ""
+        }
     }
 }
 
