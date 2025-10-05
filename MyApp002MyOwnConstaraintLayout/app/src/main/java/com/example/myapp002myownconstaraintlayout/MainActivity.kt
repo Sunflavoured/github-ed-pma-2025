@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
    //proměnná která bude ukládat datum podle zrovna vybraného datumu v kalendáři
     private var selectedDate: String = ""
 
-    // onCreate je funkce volaná při vytvoření aktivity
+    // hlavní funkce
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         btnAdd = findViewById(R.id.btnAdd)
         tvEvents = findViewById(R.id.tvEvents)
 
-        //formatování datumu
+        //formatování datumu a uložení aktuálního datumu
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
         // When a date is selected
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
                 etEvent.text.clear()
                 showEventsForDate(selectedDate)
             } else {
-                Toast.makeText(this, "Select a date and enter event", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Vyber datum a zadej událost", Toast.LENGTH_SHORT).show()
             }
         }
     }

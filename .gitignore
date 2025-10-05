@@ -1,0 +1,27 @@
+# Android Studio / IntelliJ
+.idea/
+*.iml
+.gradle/
+build/
+captures/
+local.properties
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# Node/React (if you have web parts)
+node_modules/
+
+# Python (if any analytics scripts)
+__pycache__/
+*.pyc
+
+# Backup or exported files
+*.apk
+*.zip
+*.rar
