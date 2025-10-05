@@ -19,40 +19,47 @@ class MainActivity : AppCompatActivity() {
    //proměnná která bude ukládat datum podle zrovna vybraného datumu v kalendáři
     private var selectedDate: String = ""
 
-    // onCreate je funkce volaná při vytvoření aktivity
+    // hlavní funkce
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val etName = findViewById<EditText>(R.id.etName)
-        val etSurname = findViewById<EditText>(R.id.etSurname)
-        val etPlace = findViewById<EditText>(R.id.etPlace)
-        val etAge = findViewById<EditText>(R.id.etAge)
-        val etPhone = findViewById<EditText>(R.id.etPhone)
-        val tvInformation = findViewById<TextView>(R.id.tvInformation)
-        val btnSend = findViewById<Button>(R.id.btnSend)
-        val btnDelete = findViewById<Button>(R.id.btnDelete)
+        calendarView = findViewById(R.id.calendarView)
+        etEvent = findViewById(R.id.etEvent)
+        btnAdd = findViewById(R.id.btnAdd)
+        tvEvents = findViewById(R.id.tvEvents)
 
-        // tlačítko Uložit
-        btnSend.setOnClickListener {
-            val name = etName.text.toString()
-            val surname = etSurname.text.toString()
-            val place = etPlace.text.toString()
-            val age = etAge.text.toString()
-            val phone = etPhone.text.toString()
+        //formatování datumu a uložení aktuálního datumu
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
-            val formattedText = "Jmenuji se $name $surname. Je mi $age let, bydlím v $place a můj telefon je $phone."
-            tvInformation.text = formattedText
+        // When a date is selected
+        calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
+            val calendar = Calendar.getInstance()
+            calendar.set(year, month, dayOfMonth)
+            selectedDate = dateFormat.format(calendar.time)
+            showEventsForDate(selectedDate)
         }
 
-        // tlačítko Vymazat
-        btnDelete.setOnClickListener {
-            etName.text.clear()
-            etSurname.text.clear()
-            etPlace.text.clear()
-            etAge.text.clear()
-            etPhone.text.clear()
-            tvInformation.text = ""
+        // Add event button
+        btnAdd.setOnClickListener {
+            val eventText = etEvent.text.toString().trim()
+            if (eventText.isNotEmpty() && selectedDate.isNotEmpty()) {
+                val eventList = eventsMap.getOrPut(selectedDate) { mutableListOf() }
+                eventList.add(eventText)
+                etEvent.text.clear()
+                showEventsForDate(selectedDate)
+            } else {
+                Toast.makeText(this, "Vyber datum a zadej událost", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun showEventsForDate(date: String) {
+        val events = eventsMap[date]
+        tvEvents.text = if (events.isNullOrEmpty()) {
+            "No events for $date"
+        } else {
+            "Events on $date:\n" + events.joinToString("\n")
         }
     }
 }
