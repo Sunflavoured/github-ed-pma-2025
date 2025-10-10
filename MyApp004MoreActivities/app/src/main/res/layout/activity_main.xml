@@ -10,24 +10,25 @@
     android:padding="20dp">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ukázka přidání dat do jiné aktivity"
+        android:text="Ukázka předání dat do jiné aktivity"
         android:layout_marginTop="20dp"
         android:textSize="20sp"
         />
 
     <EditText
-        android:id="@+id/etNickName"
+        android:id="@+id/etNickname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Zadejte přezdívku" />
+        android:hint="Vyplňte přezdívku"
+        android:layout_marginTop="20dp"/>
 
-
-        <Button
-            android:id="@+id/btnSecondAct"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Odeslat" />
+    <Button
+        android:id="@+id/btnSecondAct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Odeslat data"
+        android:layout_marginTop="20dp"/>
 
 </LinearLayout>
