@@ -16,6 +16,10 @@
             android:exported="false"
             android:theme="@style/Theme.MyApp004MoreActivities" />
         <activity
+            android:name=".ThirdActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MyApp004MoreActivities" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

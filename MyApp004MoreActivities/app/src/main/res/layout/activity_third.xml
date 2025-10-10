@@ -10,31 +10,16 @@
     android:padding="20dp">
 
     <TextView
-        android:id="@+id/twInfo"
+        android:id="@+id/tvInfoThird"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Data z první aktivity."
         android:layout_marginTop="20dp"/>
 
-
-
-    <EditText
-        android:id="@+id/etBenchpress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Kolik zvedate na bench press?"/>
-
-
-    <Button
-        android:id="@+id/btnThirdAct"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Třetí aktivita"/>
-
     <Button
         android:id="@+id/btnClose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Zpět na první aktivitu"/>
+        android:text="Zpět na druhou aktivitu"/>
 
 </LinearLayout>

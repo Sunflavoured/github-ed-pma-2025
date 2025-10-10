@@ -17,12 +17,15 @@ class MainActivity : AppCompatActivity() {
 
         val btnSecondAct = findViewById<Button>(R.id.btnSecondAct)
         val etNickname = findViewById<EditText>(R.id.etNickname)
+        val etVek = findViewById<EditText>(R.id.etVek)
 
         btnSecondAct.setOnClickListener {
             val nickname = etNickname.text.toString()
             val intent = Intent(this, SecondActivity::class.java )
             intent.putExtra("NICK_NAME", nickname)
+            intent.putExtra("VEK", etVek.text.toString())
             startActivity(intent)
+
         }
 
     }
