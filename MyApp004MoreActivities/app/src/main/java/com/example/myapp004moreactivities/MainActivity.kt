@@ -2,24 +2,29 @@ package com.example.myapp004moreactivities
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.myapp004moreactivities.databinding.ActivityMainBinding
-
-class MainActivity : AppCompatActivity() {
+//Main activity extends BaseActivity
+class MainActivity : BaseActivity() {
     // Declare the binding variable
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Inflate the layout using binding
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        // Inflate your specific layout into the BaseActivity’s content frame
+        setContentLayout(R.layout.activity_main)
+
+        // Set title in the ActionBar
+        supportActionBar?.title = "Main Activity"
+
+        // Optionally enable "back" button
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        // Bind it to the view inside the base layout
+        binding = ActivityMainBinding.bind(baseBinding.contentFrame.getChildAt(0))
+
+        // Set the title in the shared top bar
+        baseBinding.topAppBar.title = "Zadání údajů"
 
         binding.btnSecondAct.setOnClickListener {
             val nickname = binding.etNickname.text.toString()

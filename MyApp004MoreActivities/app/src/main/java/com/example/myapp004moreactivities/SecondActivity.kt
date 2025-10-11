@@ -2,24 +2,22 @@ package com.example.myapp004moreactivities
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.example.myapp004moreactivities.databinding.ActivityMainBinding
 import com.example.myapp004moreactivities.databinding.ActivitySecondBinding
-import kotlin.jvm.java
 
-class SecondActivity : AppCompatActivity() {
+class SecondActivity : BaseActivity() {
     private lateinit var binding: ActivitySecondBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Inflate the layout using binding
-        val binding = ActivitySecondBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        // Inflate your specific layout into the BaseActivity’s content frame
+        setContentLayout(R.layout.activity_second)
+
+        // Bind it to the view inside the base layout
+        binding = ActivitySecondBinding.bind(baseBinding.contentFrame.getChildAt(0))
+
+        // Set the title in the shared top bar
+        baseBinding.topAppBar.title = "Zadání váhy cviku"
 
         //Načtení dat z intentu
         val nickname = intent.getStringExtra("NICK_NAME")

@@ -1,18 +1,12 @@
 package com.example.myapp004moreactivities
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.example.myapp004moreactivities.databinding.ActivitySecondBinding
 import com.example.myapp004moreactivities.databinding.ActivityThirdBinding
-import kotlin.jvm.java
 
-class ThirdActivity : AppCompatActivity() {
+
+class ThirdActivity : BaseActivity() {
 
     //Vytvoření objektu binding
     private lateinit var binding: ActivityThirdBinding
@@ -20,9 +14,14 @@ class ThirdActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Inflate the layout using binding
-        binding = ActivityThirdBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        // Inflate your specific layout into the BaseActivity’s content frame
+        setContentLayout(R.layout.activity_third)
+
+        // Bind it to the view inside the base layout
+        binding = ActivityThirdBinding.bind(baseBinding.contentFrame.getChildAt(0))
+
+        // Set the title in the shared top bar
+        baseBinding.topAppBar.title = "Výsledky"
 
         //Načtení dat z intentu
         val nickname = intent.getStringExtra("NICK_NAME")
