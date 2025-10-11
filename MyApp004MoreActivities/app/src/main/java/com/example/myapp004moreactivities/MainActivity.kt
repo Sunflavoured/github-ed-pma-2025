@@ -8,25 +8,28 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.myapp004moreactivities.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    // Declare the binding variable
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_main)
+        // Inflate the layout using binding
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val btnSecondAct = findViewById<Button>(R.id.btnSecondAct)
-        val etNickname = findViewById<EditText>(R.id.etNickname)
-        val etVek = findViewById<EditText>(R.id.etVek)
-
-        btnSecondAct.setOnClickListener {
-            val nickname = etNickname.text.toString()
-            val intent = Intent(this, SecondActivity::class.java )
-            intent.putExtra("NICK_NAME", nickname)
-            intent.putExtra("VEK", etVek.text.toString())
+        binding.btnSecondAct.setOnClickListener {
+            val nickname = binding.etNickname.text.toString()
+            val vek = binding.etVek.text.toString()
+            val intent = Intent(this, SecondActivity::class.java).apply {
+                putExtra("NICK_NAME", nickname)
+                putExtra("VEK", vek)
+             }
             startActivity(intent)
 
         }
-
     }
 }

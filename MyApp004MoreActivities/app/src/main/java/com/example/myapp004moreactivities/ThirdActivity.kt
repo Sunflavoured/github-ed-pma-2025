@@ -9,31 +9,37 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.myapp004moreactivities.databinding.ActivityThirdBinding
 import kotlin.jvm.java
 
 class ThirdActivity : AppCompatActivity() {
+
+    //Vytvoření objektu binding
+    private lateinit var binding: ActivityThirdBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_third)
-
-        val tvInfoThird = findViewById<TextView>(R.id.tvInfoThird)
+        // Inflate the layout using binding
+        binding = ActivityThirdBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         //Načtení dat z intentu
         val nickname = intent.getStringExtra("NICK_NAME")
         val vek = intent.getStringExtra("VEK")
         val benchpress = intent.getStringExtra("BENCHPRESS")
 
-        // Show it in TextView
-        tvInfoThird.text =
-            "Získaná data:\nPřezdívka: $nickname\nVěk: $vek\nBenchpress: $benchpress"
+        // Zobrazení dat v TextView
+        binding.tvInfoThird.text = """
+            Získaná data:
+            Přezdívka: $nickname
+            Věk: $vek
+            Benchpress: $benchpress
+        """.trimIndent()
 
-        val btnClose = findViewById<Button>(R.id.btnClose)
-        btnClose.setOnClickListener {
+        //tlačítko pro zavření aktivity
+        binding.btnClose.setOnClickListener {
             finish()
         }
     }
-
-
-
-    }
+}
