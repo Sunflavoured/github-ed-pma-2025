@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">MyApp07_FragmantApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment_lasage">Připravíme masovou směs: na oleji osmažíme najemno nakrájenou cibuli a česnek nakrájený na plátky do zlatohněda.
+Jak jemně nakrájet cibuli
+
+Poté přidáme mleté maso a za stálého míchání a oddělování kousků od sebe ho necháme zatáhnout. Maso osolíme a okořeníme, přidáme kečup.
+
+Kořeníme hodně, abychom dosáhli výrazné chuti. Smažíme, dokud maso není hotové. Pak přidáme rajčata z plechovky, krátce povaříme, případně dochutíme.
+
+Na bešamel rozpustíme máslo, přidáme hladkou mouku a uděláme jíšku.
+
+Když je jíška osmažená, přilijeme mléko, přidáme muškátový oříšek, sůl a mletý pepř. Vaříme za stálého míchání do zhoustnutí (konzistence asi jako pudink).</string>
+    <string name="hello_blank_fragment_salat">Postup
+1.
+Připravte si dresink smícháním všech ingrediencí. Abych byla co nejpřesnější, míry jsem vám i zvážila, protože recepty na dresink, jak sama učím na kurzech vaření, jsou hodně subjektivní a 10 lidí připraví zálivku podle stejného receptu 10x jinak.
+2.
+Na pánvi si orestujte oříšky do křupava a nechte vychladnout.
+Do dvou větších talířů připravte lůžko z natrhaného římského salátu, rukoly, polníčku a okurky nakrájené na plátky. Na vrch každého položte 4 osminky hrušky, kousky gorgonzoly, brusinkovou marmeládu a teď už jen zbývá salát zakápnout bohatě dresinkem a posypat ořechy.</string>
+    <string name="hello_blank_fragment_vejce">Očistíme jarní cibulku a nakrájíme ji na kolečka. Papriku zbavíme semínek a nakrájíme na malé kousky. Nakrájíme i rajčata.
+
+Na oleji osmahneme cibulku a papriku, přidáme rajčata a koření. Vaříme pět minut na středním plameni.
+
+Vajíčka si vyšleháme se solí a opečeme je na margarínu. Pozor, chceme, aby byla hotová, ale stále krémová.
+
+Míchaná vajíčka servírujeme s teplou zeleninou.</string>
 </resources>
