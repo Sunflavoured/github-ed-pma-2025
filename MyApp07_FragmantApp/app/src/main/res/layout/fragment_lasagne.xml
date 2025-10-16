@@ -1,14 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentLasagne">
+    tools:context=".FragmentLasagne"
+    android:padding="16dp"
+    android:background="#FFF8F3">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment_lasagne" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <!-- Nadpis receptu -->
+        <TextView
+            android:id="@+id/tvTitleLasagne"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Recept: Lasagne"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#B71C1C"
+            android:gravity="center"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Text receptu -->
+        <TextView
+            android:id="@+id/tvContentLasagne"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hello_blank_fragment_lasagne"
+            android:textSize="16sp"
+            android:lineSpacingExtra="6dp"
+            android:textColor="#333333"
+            android:layout_marginBottom="24dp"
+            android:padding="8dp"
+            android:background="#FFFFFF"
+            android:elevation="2dp"
+            android:layout_marginHorizontal="4dp" />
+
+        <!-- Tip na závěr -->
+        <TextView
+            android:id="@+id/tvTipLasagne"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="💡 Tip: Pro extra chuť přidejte do bešamelu trochu parmazánu!"
+            android:textSize="14sp"
+            android:textColor="#555555"
+            android:layout_marginTop="8dp"
+            android:padding="8dp"
+            android:background="#FFF3E0"
+            android:layout_marginHorizontal="4dp" />
+
+    </LinearLayout>
+</ScrollView>
