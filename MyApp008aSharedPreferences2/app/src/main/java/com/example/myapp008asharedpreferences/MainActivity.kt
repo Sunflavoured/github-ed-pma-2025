@@ -44,7 +44,22 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
-        }
     }
+        //načítání dat
+        binding.btnNacist.setOnClickListener {
+            val savedName = sharedPreferences.getString("JMENO", "")
+            val savedAge = sharedPreferences.getInt("VEK", 0)
+            val savedIsAdult = sharedPreferences.getBoolean("ISADULT", false)
+
+            if (savedName.isNullOrEmpty()) {
+                Toast.makeText(this, "❌ Nebyla nalezena žádná uložená data", Toast.LENGTH_SHORT).show()
+            } else {
+                binding.etJmeno.setText(savedName)
+                binding.etVek.setText(savedAge.toString())
+                binding.checkBoxDone.isChecked = savedIsAdult
+                Toast.makeText(this, "📂 Data byla načtena", Toast.LENGTH_SHORT).show()
+            }
+        }
+        }
 }
 

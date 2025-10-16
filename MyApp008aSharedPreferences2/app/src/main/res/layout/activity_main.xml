@@ -1,63 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:padding="20dp">
+    android:padding="24dp"
+    android:background="#FAFAFA"
+    tools:context=".MainActivity">
 
-  <EditText
-      android:id="@+id/etJmeno"
-      android:layout_width="match_parent"
+  <!-- 🧭 Karta s obsahem -->
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/formContainer"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:hint="Jméno"
-      app:layout_constraintEnd_toStartOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
+      android:padding="24dp"
+      android:background="@drawable/bg_card"
       app:layout_constraintTop_toTopOf="parent"
-      />
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent">
 
+    <!-- Jméno -->
+    <EditText
+        android:id="@+id/etJmeno"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Jméno"
+        android:padding="12dp"
+        android:background="@drawable/bg_input"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Věk -->
     <EditText
         android:id="@+id/etVek"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Věk"
+        android:padding="12dp"
         android:inputType="number"
-        app:layout_constraintEnd_toStartOf="@+id/etJmeno"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/bg_input"
         app:layout_constraintTop_toBottomOf="@id/etJmeno"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp" />
 
+    <!-- Checkbox -->
+    <CheckBox
+        android:id="@+id/checkBoxDone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Potvrzuji, že je mi více než 18 let"
+        app:layout_constraintTop_toBottomOf="@id/etVek"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="12dp" />
 
-  <CheckBox
-      android:id="@+id/checkBoxDone"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Potvzení, že je mi více než 18!"
-      app:layout_constraintTop_toBottomOf="@id/etVek"
-      app:layout_constraintStart_toStartOf="parent"
-      android:layout_marginTop="8dp" />
-
+    <!-- Tlačítka v řetězu -->
     <Button
         android:id="@+id/btnUlozit"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="💾 Uložit"
         app:layout_constraintTop_toBottomOf="@id/checkBoxDone"
-        android:text="Uložit"
-        android:layout_margin="20dp"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnNacist"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="12dp" />
+
     <Button
         android:id="@+id/btnNacist"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:text="📂 Načíst"
         app:layout_constraintTop_toBottomOf="@id/checkBoxDone"
-        app:layout_constraintStart_toEndOf="@+id/btnUlozit"
-        android:text="Načíst"
-        android:layout_margin="20dp"
-        />
-
+        app:layout_constraintStart_toEndOf="@id/btnUlozit"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="12dp" />
+  </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
