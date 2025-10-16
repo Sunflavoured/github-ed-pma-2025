@@ -23,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Věk"
+        android:inputType="number"
         app:layout_constraintEnd_toStartOf="@+id/etJmeno"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etJmeno"
