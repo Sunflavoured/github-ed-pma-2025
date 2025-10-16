@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FragmentSalat"
+    android:padding="16dp"
+    android:background="#F9FFF8">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Nadpis receptu -->
+        <TextView
+            android:id="@+id/tvTitleSalat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Recept: Salát s hruškou a gorgonzolou"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#1B5E20"
+            android:gravity="center"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Text receptu -->
+        <TextView
+            android:id="@+id/tvContentSalat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hello_blank_fragment_salat"
+            android:textSize="16sp"
+            android:lineSpacingExtra="6dp"
+            android:textColor="#333333"
+            android:layout_marginBottom="24dp"
+            android:padding="8dp"
+            android:background="#FFFFFF"
+            android:elevation="2dp"
+            android:layout_marginHorizontal="4dp" />
+
+        <!-- Tip na závěr -->
+        <TextView
+            android:id="@+id/tvTipSalat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🥗 Tip: Přidejte pár kapek citronové šťávy pro osvěžující chuť!"
+            android:textSize="14sp"
+            android:textColor="#555555"
+            android:layout_marginTop="8dp"
+            android:padding="8dp"
+            android:background="#E8F5E9"
+            android:layout_marginHorizontal="4dp" />
+
+    </LinearLayout>
+</ScrollView>
