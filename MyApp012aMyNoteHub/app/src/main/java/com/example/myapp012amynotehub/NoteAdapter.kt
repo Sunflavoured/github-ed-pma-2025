@@ -31,6 +31,8 @@ class NoteAdapter(
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         val currentNote = notes[position]
 
+
+        holder.binding.tvNoteId.text = "ID: ${currentNote.id}"
         holder.binding.tvNoteTitle.text = currentNote.title
         holder.binding.tvNoteContent.text = currentNote.content
 

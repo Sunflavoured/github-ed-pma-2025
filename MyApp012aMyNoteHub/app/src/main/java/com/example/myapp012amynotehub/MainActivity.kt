@@ -3,6 +3,7 @@ package com.example.myapp012amynotehub
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -40,13 +41,23 @@ class MainActivity : AppCompatActivity() {
         // Adapter s callbacky
         adapter = NoteAdapter(
             onEditClick = { note ->
-                // sem později doplníme editaci
+                val intent = Intent(this, EditNoteActivity::class.java)
+                intent.putExtra("note_id", note.id)
+                startActivity(intent)
             },
             onDeleteClick = { note ->
-                deleteNote(note)
+                // --- AlertDialogu ---
+                AlertDialog.Builder(this) // 'this' je kontext, obvykle odkazuje na vaši Activity
+                    .setTitle("Potvrzení smazání")
+                    .setMessage("Opravdu chcete smazat poznámku \"${note.title}\"? Tuto akci nelze vrátit zpět.")
+                    .setPositiveButton("Smazat") { dialog, which ->
+                        // Akce, která se provede po stisknutí "Smazat"
+                        deleteNote(note)
+                    }
+                    .setNegativeButton("Zrušit", null) // "null" znamená, že dialog se jen zavře
+                    .show()
             }
         )
-
         // RecyclerView
         binding.recyclerViewNotes.layoutManager = LinearLayoutManager(this)
         binding.recyclerViewNotes.adapter = adapter
