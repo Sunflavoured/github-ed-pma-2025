@@ -35,6 +35,8 @@ class NoteAdapter(
         holder.binding.tvNoteId.text = "ID: ${currentNote.id}"
         holder.binding.tvNoteTitle.text = currentNote.title
         holder.binding.tvNoteContent.text = currentNote.content
+        holder.binding.tvNoteCategory.text = "Kategorie: ${currentNote.category}"
+
 
         // DOPLNĚNO: Kliknutí na EDIT ikonu
         holder.binding.ivEdit.setOnClickListener {

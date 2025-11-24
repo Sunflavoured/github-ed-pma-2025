@@ -1,6 +1,8 @@
 package com.example.myapp012amynotehub
 
+import android.R
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -27,10 +29,21 @@ class EditNoteActivity : AppCompatActivity() {
 
         noteDao = NoteHubDatabaseInstance.getDatabase(this).noteDao()
 
+        // ---------- Kategorie (Spinner) ----------
+        val categories = listOf("General", "Škola", "Práce", "Osobní")
+
+        val adapter = ArrayAdapter(
+            this,
+            R.layout.simple_spinner_item,
+            categories
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
         // Získáme ID poznámky z Intentu
         noteId = intent.getIntExtra("note_id", -1)
         binding.tvNoteId.text = "ID: $noteId"
 
+        binding.spinnerCategory.adapter = adapter
         // Načteme poznámku z DB
         lifecycleScope.launch {
             noteDao.getAllNotes().collect { notes ->
@@ -38,6 +51,9 @@ class EditNoteActivity : AppCompatActivity() {
                 if (note != null) {
                     binding.etEditTitle.setText(note.title)
                     binding.etEditContent.setText(note.content)
+                    binding.spinnerCategory.setSelection(adapter.getPosition(note.category
+                        )
+                    )
                 }
             }
         }
