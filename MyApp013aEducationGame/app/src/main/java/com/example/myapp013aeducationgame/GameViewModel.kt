@@ -14,27 +14,23 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     private val db = AppDatabase.getDatabase(application)
     private val dao = db.gameDao()
 
-    // --- DATA PRO UI ---
     val currentUser = MutableLiveData<User?>()
 
-    // Herní data
     val currentQuestion = MutableLiveData<Question?>()
     val score = MutableLiveData(0)
-    val lives = MutableLiveData(3) // Hráč má 3 životy (firewally)
+    val lives = MutableLiveData(3)
     val isGameOver = MutableLiveData(false)
     val isVictory = MutableLiveData(false)
 
-    // Interní proměnné
     private var questionList: List<Question> = emptyList()
     private var questionIndex = 0
 
-    // 1. Načtení uživatele podle jména (voláme z MainActivity i GameActivity)
+    // Načtení uživatele
     fun loadUser(username: String) {
         viewModelScope.launch {
             var user = dao.getUserByName(username)
             if (user == null) {
-                // Pokud user neexistuje, vytvoříme ho (registrace)
-                val newUser = User(username = username, highestScore = 0)
+                val newUser = User(username = username)
                 dao.insertUser(newUser)
                 user = dao.getUserByName(username)
             }
@@ -42,13 +38,24 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    // 2. Start hry - načtení otázek
+    // Start hry s obnovením postupu
     fun startGame() {
         viewModelScope.launch {
             questionList = dao.getAllQuestions()
-            questionIndex = 0
-            score.value = 0
-            lives.value = 3
+            val user = currentUser.value
+
+            if (user != null && user.savedQuestionIndex > 0 && user.savedQuestionIndex < questionList.size) {
+                // OBNOVENÍ HRY (POKRAČUJEME)
+                questionIndex = user.savedQuestionIndex
+                score.value = user.savedCurrentScore
+                lives.value = user.savedLives
+            } else {
+                // NOVÁ HRA (OD ZAČÁTKU)
+                questionIndex = 0
+                score.value = 0
+                lives.value = 3
+            }
+
             isGameOver.value = false
             isVictory.value = false
 
@@ -58,22 +65,23 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    // 3. Kontrola odpovědi
     fun checkAnswer(answerIndex: Int) {
-        // Pokud je konec hry, nic neděláme
         if (isGameOver.value == true || isVictory.value == true) return
 
         val question = currentQuestion.value ?: return
 
         if (answerIndex == question.correctAnswerIndex) {
-            // SPRÁVNĚ -> Zvyš skóre a jdi dál
+            // Správně
             score.value = (score.value ?: 0) + 100
-            nextQuestion()
+            nextQuestion() // Jdeme dál
         } else {
-            // ŠPATNĚ -> Uber život
+            // Špatně
             lives.value = (lives.value ?: 3) - 1
             if ((lives.value ?: 0) <= 0) {
-                endGame()
+                endGame() // Konec
+            } else {
+                // Stále žijeme, ale musíme uložit ztrátu života do DB
+                saveProgress()
             }
         }
     }
@@ -82,29 +90,51 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         questionIndex++
         if (questionIndex < questionList.size) {
             currentQuestion.value = questionList[questionIndex]
+            // ULOŽÍME PROGRES (Hráč postoupil, uložíme to hned)
+            saveProgress()
         } else {
-            // Došly otázky -> VÍTĚZSTVÍ
             isVictory.value = true
-            saveScore()
+            resetProgressAndSaveHighScore() // Hra dohrána, resetujeme uloženou pozici
         }
     }
 
     private fun endGame() {
         isGameOver.value = true
-        saveScore()
+        resetProgressAndSaveHighScore() // Prohra, resetujeme uloženou pozici
     }
 
-    // Uložení nejlepšího skóre do DB
-    private fun saveScore() {
+    // Uloží aktuální stav (kde jsem, kolik mám bodů, kolik životů)
+    private fun saveProgress() {
+        viewModelScope.launch {
+            val user = currentUser.value ?: return@launch
+            val updatedUser = user.copy(
+                savedQuestionIndex = questionIndex,
+                savedCurrentScore = score.value ?: 0,
+                savedLives = lives.value ?: 3
+            )
+            dao.updateUser(updatedUser)
+            // Aktualizujeme i LiveData, aby UI vědělo o změně (např. při restartu appky)
+            currentUser.value = updatedUser
+        }
+    }
+
+    // Resetuje progres na 0, ale zachová nejvyšší skóre
+    private fun resetProgressAndSaveHighScore() {
         viewModelScope.launch {
             val user = currentUser.value ?: return@launch
             val currentScore = score.value ?: 0
 
-            if (currentScore > user.highestScore) {
-                // Update v DB (Copy vytvoří kopii objektu s novou hodnotou)
-                val updatedUser = user.copy(highestScore = currentScore)
-                dao.updateUser(updatedUser)
-            }
+            // Zjistíme, jestli je to nový rekord
+            val newHighScore = if (currentScore > user.highestScore) currentScore else user.highestScore
+
+            val updatedUser = user.copy(
+                highestScore = newHighScore,
+                savedQuestionIndex = 0,  // Reset pozice
+                savedCurrentScore = 0,   // Reset bodů běhu
+                savedLives = 3           // Reset životů
+            )
+            dao.updateUser(updatedUser)
+            currentUser.value = updatedUser
         }
     }
 }
