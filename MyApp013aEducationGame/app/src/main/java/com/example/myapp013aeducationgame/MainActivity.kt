@@ -25,19 +25,21 @@ class MainActivity : AppCompatActivity() {
             val name = etUsername.text.toString().trim()
             if (name.isNotEmpty()) {
                 // Zavoláme logiku ve ViewModelu
-                viewModel.loginOrRegister(name)
+                viewModel.loadUser(name)
             } else {
                 Toast.makeText(this, "Enter a valid codename!", Toast.LENGTH_SHORT).show()
             }
         }
 
-        // Sledování změn (jakmile se user přihlásí, toto se spustí)
+        // Sledování změn
         viewModel.currentUser.observe(this, Observer { user ->
             if (user != null) {
-                // Tady později spustíme hru. Zatím jen ověříme, že to funguje.
-                Toast.makeText(this, "Welcome Agent: ${user.username}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Access Granted: ${user.username}", Toast.LENGTH_SHORT).show()
 
-                // TODO: Přechod na GameActivity (uděláme v dalším kroku)
+                // SPUSTÍME HRU
+                val intent = android.content.Intent(this, GameActivity::class.java)
+                intent.putExtra("USERNAME", user.username)
+                startActivity(intent)
             }
         })
     }
