@@ -43,6 +43,14 @@
             android:layout_height="wrap_content"
             android:text="Ukázkový obsah..."
             android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tvNoteCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kategorie: ---"
+            android:textSize="14sp"
+        />
     </LinearLayout>
 
     <!-- EDIT icon -->

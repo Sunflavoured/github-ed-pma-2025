@@ -41,6 +41,21 @@
             android:layout_marginTop="12dp"
             android:inputType="textMultiLine"
             />
+        <!-- Kategorie (Label) -->
+        <TextView
+            android:id="@+id/labelCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kategorie"
+            android:textStyle="bold"
+            android:layout_marginBottom="6dp" />
+
+        <!-- Kategorie (Spinner) -->
+        <Spinner
+            android:id="@+id/spinnerCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp" />
 
         <Button
             android:id="@+id/btnSaveChanges"

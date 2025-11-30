@@ -5,8 +5,13 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "note_table")
 data class Note(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    val title: String, //název poznámky
-    val content: String //obsah poznámky
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,  // ID poznámky, automaticky generované
+    val title: String, // Název poznámky
+    val content: String, // Obsah poznámky
 
-    )
+    // nový atribut 1 — timestamp
+    val createdAt: Long = System.currentTimeMillis(),
+
+    // nový atribut 2 — kategorie
+    val category: String = "General"
+)
