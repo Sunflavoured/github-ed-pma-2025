@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#000000"
+    android:padding="16dp"
+    android:gravity="center_horizontal"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:id="@+id/tvPlayerName"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Agent: ..."
+            android:textColor="#00FF00"
+            android:fontFamily="monospace"/>
+
+        <TextView
+            android:id="@+id/tvScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Score: 0"
+            android:textColor="#00FF00"
+            android:textStyle="bold"
+            android:fontFamily="monospace"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvLives"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FIREWALL INTEGRITY: 100%"
+        android:textColor="#FF0000"
+        android:textSize="18sp"
+        android:layout_marginBottom="48dp"
+        android:fontFamily="monospace"/>
+
+    <TextView
+        android:id="@+id/tvQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:text="Loading Virus Signature..."
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        android:gravity="center"
+        android:background="#112211"
+        android:padding="16dp"
+        android:layout_marginBottom="32dp"
+        android:fontFamily="monospace"/>
+
+    <Button
+        android:id="@+id/btnAnswerA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Option A"
+        android:backgroundTint="#004400"
+        android:textColor="#00FF00"
+        android:fontFamily="monospace"
+        android:layout_marginBottom="8dp"/>
+
+    <Button
+        android:id="@+id/btnAnswerB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Option B"
+        android:backgroundTint="#004400"
+        android:textColor="#00FF00"
+        android:fontFamily="monospace"
+        android:layout_marginBottom="8dp"/>
+
+    <Button
+        android:id="@+id/btnAnswerC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Option C"
+        android:backgroundTint="#004400"
+        android:textColor="#00FF00"
+        android:fontFamily="monospace"/>
+
+</LinearLayout>
