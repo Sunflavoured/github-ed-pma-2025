@@ -5,19 +5,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapp014asharedtasklist.databinding.ItemTaskBinding
 
-// Adapter obsluhuje zobrazení seznamu úkolů v RecyclerView.
-// Přijímá list úkolů a callbacky pro změnu stavu a smazání.
 class TaskAdapter(
     private var tasks: List<Task>,
-    private val onChecked: (Task) -> Unit,  // zavolá se při kliknutí na checkbox
-    private val onDelete: (Task) -> Unit     // zavolá se při kliknutí na ikonu smazání
+    private val onChecked: (Task) -> Unit,
+    private val onDelete: (Task) -> Unit,
+    private val onEdit: (Task) -> Unit // <--- NOVÝ CALLBACK PRO EDITACI
 ) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
-    // ViewHolder drží jeden řádek seznamu (item_task.xml) a jeho view binding.
     inner class TaskViewHolder(val binding: ItemTaskBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    // Vytvoření nového ViewHolderu – vytvoří se layout jednoho řádku.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val binding = ItemTaskBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
@@ -25,32 +22,42 @@ class TaskAdapter(
         return TaskViewHolder(binding)
     }
 
-    // Naplnění dat pro jeden řádek – nastavíme text, checkbox a tlačítko delete.
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val task = tasks[position]
 
-        // Nastaví text úkolu
         holder.binding.textTitle.text = task.title
 
-        // Nastaví zaškrtnutí checkboxu podle hodnoty v objektu
+        // --- OPRAVA BUGU S CHECKBOXEM ---
+        // 1. Nejdřív zrušíme listener, aby se nespustil při nastavování hodnoty
+        holder.binding.checkCompleted.setOnCheckedChangeListener(null)
+
+        // 2. Nastavíme správnou hodnotu
         holder.binding.checkCompleted.isChecked = task.completed
 
-        // Listener pro změnu stavu checkboxu
-        // Když uživatel změní stav, zavolá se funkce onChecked(task)
-        holder.binding.checkCompleted.setOnCheckedChangeListener { _, _ ->
-            onChecked(task)
+        // 3. Znovu nastavíme listener (reaguje jen na kliknutí uživatele)
+        holder.binding.checkCompleted.setOnCheckedChangeListener { _, isChecked ->
+            // Checkbox vrací jen boolean, ale my chceme volat funkci toggle
+            // Voláme onChecked jen pokud se stav liší od uloženého (pojistka)
+            if (isChecked != task.completed) {
+                onChecked(task)
+            }
         }
+        // -------------------------------
 
-        // Listener pro smazání úkolu
         holder.binding.imageDelete.setOnClickListener {
             onDelete(task)
         }
+
+        // --- NOVÁ FUNKCE: EDITACE ---
+        // Dlouhé podržení na položce spustí editaci
+        holder.itemView.setOnLongClickListener {
+            onEdit(task)
+            true // true znamená, že jsme událost zpracovali
+        }
     }
 
-    // Počet položek v seznamu
     override fun getItemCount() = tasks.size
 
-    // Aktualizace seznamu – nahradí starý list novým a překreslí RecyclerView
     fun submitList(newList: List<Task>) {
         tasks = newList
         notifyDataSetChanged()

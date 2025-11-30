@@ -1,10 +1,9 @@
 package com.example.myapp014asharedtasklist
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog // Import pro dialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapp014asharedtasklist.databinding.ActivityMainBinding
 import com.google.firebase.Firebase
@@ -15,7 +14,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var db: FirebaseFirestore
-
     private lateinit var adapter: TaskAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,17 +23,17 @@ class MainActivity : AppCompatActivity() {
 
         db = Firebase.firestore
 
-        // Nastavení adapteru
+        // Nastavení adapteru s novým parametrem pro Editaci
         adapter = TaskAdapter(
             tasks = emptyList(),
             onChecked = { task -> toggleCompleted(task) },
-            onDelete = { task -> deleteTask(task) }
+            onDelete = { task -> deleteTask(task) },
+            onEdit = { task -> showEditDialog(task) } // <--- Předáváme funkci pro editaci
         )
 
         binding.recyclerViewTasks.adapter = adapter
         binding.recyclerViewTasks.layoutManager = LinearLayoutManager(this)
 
-        // Přidání úkolu
         binding.buttonAdd.setOnClickListener {
             val title = binding.inputTask.text.toString()
             if (title.isNotEmpty()) {
@@ -44,53 +42,62 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Realtime sledování Firestore
         listenForTasks()
     }
 
     private fun addTask(title: String) {
-        println("DEBUG: addTask called with title = $title")
+        // ID se nevyplňuje, Firestore ho vytvoří sám
         val task = Task(title = title, completed = false)
         db.collection("tasks").add(task)
     }
 
+    // --- OPRAVENÁ FUNKCE (používá ID) ---
     private fun toggleCompleted(task: Task) {
-
-        // Vyhledá v databázi všechny dokumenty, které mají stejné title jako kliknutý úkol
+        // Místo složitého hledání podle názvu jdeme přímo po ID dokumentu
         db.collection("tasks")
-            .whereEqualTo("title", task.title)
-            .get()
-            .addOnSuccessListener { docs ->
-
-                // Pro každý nalezený dokument změní hodnotu "completed" na opačnou
-                for (doc in docs) {
-                    db.collection("tasks")
-                        .document(doc.id)
-                        .update("completed", !task.completed)
-                }
-            }
+            .document(task.id) // <--- ZDE JE ZMĚNA, používáme ID
+            .update("completed", !task.completed)
     }
 
+    // --- OPRAVENÁ FUNKCE (používá ID) ---
     private fun deleteTask(task: Task) {
         db.collection("tasks")
-            .whereEqualTo("title", task.title)
-            .get()
-            .addOnSuccessListener { docs ->
-                for (doc in docs) {
-                    db.collection("tasks").document(doc.id).delete()
-                }
-            }
+            .document(task.id) // <--- ZDE JE ZMĚNA
+            .delete()
     }
 
+    // --- NOVÁ FUNKCE: Zobrazení dialogu pro úpravu ---
+    private fun showEditDialog(task: Task) {
+        val input = EditText(this)
+        input.setText(task.title) // Předvyplníme stávající text
+
+        AlertDialog.Builder(this)
+            .setTitle("Upravit úkol")
+            .setView(input)
+            .setPositiveButton("Uložit") { _, _ ->
+                val newTitle = input.text.toString()
+                if (newTitle.isNotEmpty()) {
+                    updateTaskTitle(task, newTitle)
+                }
+            }
+            .setNegativeButton("Zrušit", null)
+            .show()
+    }
+
+    // --- NOVÁ FUNKCE: Odeslání změny do Firebase ---
+    private fun updateTaskTitle(task: Task, newTitle: String) {
+        db.collection("tasks")
+            .document(task.id)
+            .update("title", newTitle)
+    }
 
     private fun listenForTasks() {
         db.collection("tasks")
-            // Sleduje kolekci tasks v reálném čase
             .addSnapshotListener { snapshots, _ ->
-                // Převede dokumenty z Firestore na seznam objektů Task
                 val taskList = snapshots?.toObjects(Task::class.java) ?: emptyList()
-                // Aktualizuje RecyclerView novým seznamem úkolů
-                adapter.submitList(taskList)
+                // Seřadíme úkoly: nehotové nahoře, hotové dole
+                val sortedList = taskList.sortedBy { it.completed }
+                adapter.submitList(sortedList)
             }
     }
 }
