@@ -70,7 +70,7 @@ class ChristmasDataStore(private val context: Context) {
             }
         }
     }
-    
+
     suspend fun deleteGift(giftId: Long) {
         context.dataStore.edit { preferences ->
             val json = preferences[GIFTS_KEY] ?: "[]"
