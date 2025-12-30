@@ -25,3 +25,9 @@ Pokud si dárek rozmyslíte, můžete konkrétní dárek smazat - podržením pr
 - [ ] přidat možnost úpravy
 - [ ] udělat podsložky podle jmen lidí
 - [ ] tlačítko smazat vše
+
+
+![Screenshot_2025-12-30-14-07-45-58_50af4119c6bc69c72940d08e712817e6](https://github.com/user-attachments/assets/a42a96e8-2bde-474b-81a4-0f7bda345938)
+
+![Screenshot_2025-12-30-14-07-36-61_50af4119c6bc69c72940d08e712817e6](https://github.com/user-attachments/assets/431df626-18b4-4b83-8212-6c532ec23b3a)
+
