@@ -58,4 +58,7 @@ dependencies {
     // Lifecycle (pro práci s Coroutines a ViewModel)
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.10.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.10.0")
+
+    //JSON
+    implementation("com.google.code.gson:gson:2.13.2")
 }
